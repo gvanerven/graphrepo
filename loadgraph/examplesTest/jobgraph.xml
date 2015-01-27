@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test">
+	<destination id="graphProcurements" type = "NEO4J" method="update">c:\database\neo4j</destination>
+			
+	<source id="Procurements" 
+			type = "SQL"
+			driver = "com.mysql.jdbc.Driver" 
+			urlConnection = "jdbc:mysql://localhost:3306/procurements"
+			database = "procurements"
+			uid = "root"
+			passwd = "password">
+			SELECT pk_person, name_person, birthday, pk_company, company_name, open_date, close_date, '112014' as load_date	FROM people_partners AS PP01 INNER JOIN companies AS C01 ON C01.pk_company = PP01.fk_company INNER JOIN people AS P01 ON P01.pk_person = PP01.fk_person_partner;</source>
+
+	<vertex label="Person">
+		<map fieldName="pk_person" rename="cpf" key="true" type="int"/>
+		<map fieldName="name_person" rename="name" type="string" indexed="true"/>
+		<map fieldName="birthday" type="string"/>
+	</vertex>
+
+	<vertex label="Company">
+		<map fieldName="pk_company" rename="cnpj" key="true" type="int"/>
+		<map fieldName="company_name" rename="name" type="string"/>
+		<map fieldName="open_date" type="string"/>
+		<map fieldName="close_date" type="string"/>
+	</vertex>	
+
+	<edge id="PersonCompany" label="HAS_PART" vertexSrc="Person" vertexDst="Company">
+		<map fieldName="load_date" type="string"/>
+	</edge>
+	
+</job>

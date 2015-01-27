@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test">
+	<destination id="graphProcurements" type = "NEO4J" method="insert">c:\database\neo4j</destination>
+			
+	<source id="Companies" 
+			type = "SQL"
+			driver = "com.mysql.jdbc.Driver" 
+			urlConnection = "jdbc:mysql://localhost:3306/procurements"
+			database = "procurements"
+			uid = "root"
+			passwd = "password">
+			SELECT DISTINCT pk_company, company_name, open_date, close_date FROM people_partners AS PP01 INNER JOIN companies AS C01 ON C01.pk_company = PP01.fk_company INNER JOIN people AS P01 ON P01.pk_person = PP01.fk_person_partner;</source>
+
+	<vertex label="Company">
+		<map fieldName="pk_company" rename="cnpj" key="true" type="int"/>
+		<map fieldName="company_name" rename="name" type="string"/>
+		<map fieldName="open_date" type="string"/>
+		<map fieldName="close_date" type="string"/>
+	</vertex>
+	
+</job>

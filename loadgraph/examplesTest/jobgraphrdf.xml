@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test RDF">
+	<destination id="graphProcurements" type = "RDFFILE" format="N-TRIPLES" logFile="C:\\tmp\\jena-log4j.properties">c:\database\procuremets_rdf.rdf</destination>
+			
+	<source id="Procurements" 
+			type = "SQL"
+			driver = "com.mysql.jdbc.Driver" 
+			urlConnection = "jdbc:mysql://localhost:3306/procurements"
+			database = "procurements"
+			uid = "root"
+			passwd = "password">
+			SELECT pk_person, pk_person as cpf, name_person, birthday, pk_company, pk_company as cnpj, company_name, open_date, close_date FROM people_partners AS PP01 INNER JOIN companies AS C01 ON C01.pk_company = PP01.fk_company INNER JOIN people AS P01 ON P01.pk_person = PP01.fk_person_partner;</source>
+
+	<vertex label="Person" uriBase="http://die.cgu.gov.br/person#">
+		<map fieldName="pk_person" key="true"/>
+		<map fieldName="cpf" basePredicate="http://die.cgu.gov.br/person#" type="long"/>
+	</vertex>
+	
+	<vertex label="Name" uriBase="http://die.cgu.gov.br/name#">
+		<map fieldName="name_person" key="true"/>
+	</vertex>
+
+	<vertex label="Birthday" uriBase="http://die.cgu.gov.br/date#">
+		<map fieldName="birthday" key="true"/>
+	</vertex>
+	
+	<vertex label="Company" uriBase="http://die.cgu.gov.br/company#">
+		<map fieldName="pk_company" key="true"/>
+		<map fieldName="cnpj" basePredicate="http://die.cgu.gov.br/company#" type="long"/>
+		<map fieldName="company_name" rename="name" basePredicate="http://die.cgu.gov.br/company#" type="string"/>
+		<map fieldName="open_date" rename="openDate" basePredicate="http://die.cgu.gov.br/company#" type="string"/>
+		<map fieldName="close_date" rename="closeDate" basePredicate="http://die.cgu.gov.br/company#" type="string"/>
+	</vertex>	
+
+	<vertex label="PersonAtt" uriBase="http://die.cgu.gov.br/attributes/person#">
+		<map fieldName="pk_person" key="true"/>
+	</vertex>
+	
+	<edge id="PersonCompany" label="hasPart" basePredicate="http://die.cgu.gov.br/relationship#" vertexSrc="Person" vertexDst="Company"></edge>
+	<edge id="PersonAttributes" label="hasAttribute" basePredicate="http://die.cgu.gov.br/relationship#" vertexSrc="Person" vertexDst="PersonAtt"></edge>
+	<edge id="PersonAttributesName" label="hasName" basePredicate="http://www.w3.org/2006/vcard/ns#" vertexSrc="PersonAtt" vertexDst="Name"></edge>
+	<edge id="PersonAttributesBirthday" label="bday" basePredicate="http://www.w3.org/2006/vcard/ns#" vertexSrc="PersonAtt" vertexDst="Birthday"></edge>
+	
+</job>

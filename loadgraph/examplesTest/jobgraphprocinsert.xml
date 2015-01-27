@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test Without edges">
+	<destination id="graphProcurements" type = "NEO4J" method="insert">c:\database\neo4j</destination>
+			
+	<source id="ProcurementsProc" 
+			type = "SQL"
+			driver = "com.mysql.jdbc.Driver" 
+			urlConnection = "jdbc:mysql://localhost:3306/procurements"
+			database = "procurements"
+			uid = "root"
+			passwd = "password">
+			SELECT pk_procurement, publication_date, homologation_date FROM procurements.procurements;</source>
+
+	<vertex label="Procurement">
+		<map fieldName="pk_procurement" key="true" type="int"/>
+		<map fieldName="publication_date" type="string"/>
+		<map fieldName="homologation_date" type="string"/>
+	</vertex>
+
+</job>

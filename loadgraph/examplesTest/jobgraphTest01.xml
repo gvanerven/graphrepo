@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test">
+	<destination id="graphProcurements" type = "NEO4J" method="insert">c:\database\neo4j</destination>
+			
+	<source id="Procurements" 
+			type = "SQL"
+			driver = "com.mysql.jdbc.Driver" 
+			urlConnection = "jdbc:mysql://localhost:3306/procurements"
+			database = "procurements"
+			uid = "root"
+			passwd = "password">
+			SELECT pk_person, name_person, birthday	
+			FROM people;
+			</source>
+
+	<vertex label="Person">
+		<map fieldName="pk_person" rename="cpf" key="true" type="int"/>
+		<map fieldName="name_person" rename="name" type="string" indexed="true"/>
+		<map fieldName="birthday" type="string"/>
+	</vertex>
+	
+</job>

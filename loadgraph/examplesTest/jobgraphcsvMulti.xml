@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<job description="Job Test File">
+	<destination id="graphProcurements" type = "NEO4J" method="update">c:\database\neo4j</destination>
+			
+	<source id="agency" 
+			type="Filetable" 
+			delimiter=";"
+			textSurroundedChar='"'
+			header="false"
+			multiFiles="true"
+			userHeader="id;agencyName">
+			test-agency-.*.csv
+			</source>
+
+	<vertex label="Agency">
+		<map fieldName="id" rename="cod_agency" key="true" type="int"/>
+		<map fieldName="agencyName" rename="agency_name" type="string" indexed="true"/>
+	</vertex>
+
+</job>
