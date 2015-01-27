@@ -58,14 +58,14 @@ public class AppTest
     
     public void testConn(){    	
     	DatabaseTools dbt = new DatabaseTools();
-    	dbt.execConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/", "root", "Master2001");
+    	dbt.execConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/", "root", "password");
     	assertEquals(true, dbt.isConnected());
     	dbt.closeConnection();    	
     }
     
     public void testQuery(){ //remember to start the database   	
     	DatabaseTools dbt = new DatabaseTools();
-    	dbt.execConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/procurements", "root", "Master2001");
+    	dbt.execConnection("com.mysql.jdbc.Driver", "jdbc:mysql://localhost:3306/procurements", "root", "password");
     	dbt.execQuery("SELECT pk_person FROM people;");
    		assertEquals("1", dbt.getRecord().get("pk_person"));
    		dbt.closeConnection();
