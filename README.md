@@ -1,7 +1,7 @@
 # Graphrepo - Repository to graph tools
 ## Loadgraph
 
-The loadgraph is a program to load CSV files or SQL queries into graph databases using the concept of Job. The job is described into XML and transformed in vertices and edges. For now, the loadgraph are only working with Neo4j and a rough implementation for generate RDF files.
+The loadgraph is a program to load CSV files or SQL queries into graph databases using the concept of Job. The job is described into XML and transformed in vertices and edges. For now, the loadgraph are only working with Neo4j and a rough implementation to generate RDF files.
 
 >Use the following command to load the graph:
 
