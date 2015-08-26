@@ -42,3 +42,6 @@ The loadgraph is a program to load CSV files or SQL queries into graph databases
 
 If the insert option in destination tag is used, the program will not check if the vertex exists, but will be faster. This mode are better to load lists with unique vertices.
 
+##License
+
+Loadgraph is licensed under the Apache License, Version 2.0.
